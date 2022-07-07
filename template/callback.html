@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Microsoft Graph Token</title>
+    <style>
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Microsoft Graph Token</h5>
+                <p class="card-text">{{.Email}}</p>
+                <div class="alert alert-success" role="alert">
+                    Successfully retrieved token.
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Access token</span>
+                    <textarea id="txtAccessToken" type="text" class="form-control" rows="5"
+                        readonly>{{.AccessToken}}</textarea>
+                    <button id="btnAccessToken" class="btn btn-outline-secondary" type="button" value="AccessToken"
+                        onclick="btnClick(this);">Copy</button>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Refresh token</span>
+                    <textarea id="txtRefreshToken" type="text" class="form-control" rows="5"
+                        readonly>{{.RefreshToken}}</textarea>
+                    <button id="btnRefreshToken" class="btn btn-outline-secondary" type="button" value="RefreshToken"
+                        onclick="btnClick(this);">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script>
+        function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+        function btnClick(btn) {
+            if (btn.value == 'AccessToken') {
+                copyToClipboard(document.getElementById('txtAccessToken').value);
+            } else {
+                copyToClipboard(document.getElementById('txtRefreshToken').value);
+            }
+            btn.innerText = 'Copied!';
+            btn.disabled = true;
+            setTimeout(function () {
+                btn.innerText = 'Copy';
+                btn.disabled = false;
+            }, 3000);
+        }
+
+    </script>
+
+</html>
